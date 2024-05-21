@@ -6,7 +6,7 @@ export const AskQuestion = async (req,res)=>{
     const postQuestionData=req.body;
     const postQuestion=new Questions(postQuestionData)
 
-    console.log(req.body)
+
 
     try{
         await postQuestion.save();

@@ -20,11 +20,12 @@ app.get('/',(req,res)=>{
 app.use('/user',userRoutes)
 app.use('/questions',questionRoutes)
 app.use('/answer',answerRoutes)
- 
+
 const PORT=process.env.PORT||5000
-//"mongodb://localhost:27017/Stackoverflow?authMechanism=DEFAULT"
-const DATABASE_URL=process.env.CONNECTION_URL//1
-mongoose.connect(DATABASE_URL)//2
+const DATABASE_URL="mongodb://127.0.0.1:27017/Stackoverflow?authMechanism=DEFAULT";
+
+mongoose.connect(DATABASE_URL)
+
  app.listen(PORT,()=>{
     console.log(`app running on http://localhost:${PORT}`)
  })

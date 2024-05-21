@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 
 import users from '../models/auth.js'
-
+const JWT_SECRET='pawan';
 export const signup =async(req,res)=>{
 const { name , email ,password}=req.body;
 try{
@@ -14,7 +14,7 @@ try{
     const hashedPassword=await bcrypt.hash(password, 12)
     const newUser = await users.create({name,email,password:hashedPassword})
     
-    const token = jwt.sign({email: newUser.email,id:newUser._id},process.env.JWT_SECRET,{expiresIn:'1h'});
+    const token = jwt.sign({email: newUser.email,id:newUser._id},JWT_SECRET,{expiresIn:'1h'});
     res.status(200).json({result:newUser,token})
 }
 
@@ -43,7 +43,7 @@ export const login =async(req,res)=>{
             return res.status(400).json({message:"Invalid Credentials"})
         }
 
-        const token = jwt.sign({email: existinguser.email,id:existinguser._id},process.env.JWT_SECRET,{expiresIn:'1h'});
+        const token = jwt.sign({email: existinguser.email,id:existinguser._id},JWT_SECRET,{expiresIn:'1h'});
         res.status(200).json({result:existinguser,token})
     } 
     catch (error) {
